@@ -16,7 +16,7 @@
 # under the License.
 """A collection of ORM sqlalchemy models for SQL Lab"""
 
-import builtins
+import builtins  # noqa: I001
 import inspect
 import logging
 import re
@@ -48,8 +48,8 @@ from sqlalchemy.engine.url import URL
 from sqlalchemy.orm import backref, relationship
 from sqlalchemy.sql.elements import ColumnElement, literal_column
 
-from superset import security_manager
 from superset.exceptions import SupersetSecurityException
+from superset.extensions import security_manager
 from superset.jinja_context import BaseTemplateProcessor, get_template_processor
 from superset.models.helpers import (
     AuditMixinNullable,
@@ -59,6 +59,9 @@ from superset.models.helpers import (
 )
 from superset.sql_parse import CtasMethod, extract_tables_from_jinja_sql, Table
 from superset.sqllab.limiting_factor import LimitingFactor
+
+# Import required for sqlalchemy's order of operations
+from superset.tags.models import TaggedObject  # pylint: disable=unused-import # noqa
 from superset.utils.core import get_column_name, MediumText, QueryStatus, user_label
 
 if TYPE_CHECKING:
@@ -148,7 +151,7 @@ class Query(
         foreign_keys=[database_id],
         backref=backref("queries", cascade="all, delete-orphan"),
     )
-    user = relationship(security_manager.user_model, foreign_keys=[user_id])
+    user = relationship("User", foreign_keys=[user_id])
 
     __table_args__ = (sqla.Index("ti_user_id_changed_on", user_id, changed_on),)
 
@@ -395,7 +398,7 @@ class SavedQuery(
     sql = Column(MediumText())
     template_parameters = Column(Text)
     user = relationship(
-        security_manager.user_model,
+        "User",
         backref=backref("saved_queries", cascade="all, delete-orphan"),
         foreign_keys=[user_id],
     )
@@ -497,7 +500,9 @@ class TabState(AuditMixinNullable, ExtraJSONMixin, Model):
     latest_query_id = Column(
         Integer, ForeignKey("query.client_id", ondelete="SET NULL")
     )
-    latest_query = relationship("Query")
+    latest_query = relationship(
+        "Query", primaryjoin="TabState.latest_query_id == Query.client_id"
+    )
 
     # other properties
     autorun = Column(Boolean, default=False)

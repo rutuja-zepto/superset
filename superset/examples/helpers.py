@@ -20,8 +20,10 @@ import json
 import os
 from typing import Any
 
-from superset import app, db
+from flask import current_app as app
+
 from superset.connectors.sqla.models import SqlaTable
+from superset.extensions import db
 from superset.models.slice import Slice
 
 BASE_URL = "https://github.com/apache-superset/examples-data/blob/master/"

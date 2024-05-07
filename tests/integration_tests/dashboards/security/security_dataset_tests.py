@@ -20,9 +20,11 @@ import json
 
 import prison
 import pytest
-from flask import escape  # noqa: F401
+from flask import (
+    current_app as app,
+    escape,  # noqa: F401
+)
 
-from superset import app
 from superset.daos.dashboard import DashboardDAO
 from tests.integration_tests.constants import ADMIN_USERNAME, GAMMA_USERNAME
 from tests.integration_tests.dashboards.base_case import DashboardTestCase

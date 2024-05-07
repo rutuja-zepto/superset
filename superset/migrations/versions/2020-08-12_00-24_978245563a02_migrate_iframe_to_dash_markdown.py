@@ -32,7 +32,7 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Table, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
-from superset import db
+from superset.extensions import db
 
 # revision identifiers, used by Alembic.
 revision = "978245563a02"

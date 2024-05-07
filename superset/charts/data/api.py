@@ -27,7 +27,6 @@ from flask_appbuilder.api import expose, protect
 from flask_babel import gettext as _
 from marshmallow import ValidationError
 
-from superset import is_feature_enabled, security_manager
 from superset.async_events.async_query_manager import AsyncQueryTokenException
 from superset.charts.api import ChartRestApi
 from superset.charts.data.query_context_cache_loader import QueryContextCacheLoader
@@ -45,7 +44,7 @@ from superset.common.chart_data import ChartDataResultFormat, ChartDataResultTyp
 from superset.connectors.sqla.models import BaseDatasource
 from superset.daos.exceptions import DatasourceNotFound
 from superset.exceptions import QueryObjectValidationError
-from superset.extensions import event_logger
+from superset.extensions import event_logger, feature_flag_manager, security_manager
 from superset.models.sql_lab import Query
 from superset.utils.core import (
     create_zip,
@@ -164,7 +163,7 @@ class ChartDataRestApi(ChartRestApi):
 
         # TODO: support CSV, SQL query and other non-JSON types
         if (
-            is_feature_enabled("GLOBAL_ASYNC_QUERIES")
+            feature_flag_manager.is_feature_enabled("GLOBAL_ASYNC_QUERIES")
             and query_context.result_format == ChartDataResultFormat.JSON
             and query_context.result_type == ChartDataResultType.FULL
         ):
@@ -252,7 +251,7 @@ class ChartDataRestApi(ChartRestApi):
 
         # TODO: support CSV, SQL query and other non-JSON types
         if (
-            is_feature_enabled("GLOBAL_ASYNC_QUERIES")
+            feature_flag_manager.is_feature_enabled("GLOBAL_ASYNC_QUERIES")
             and query_context.result_format == ChartDataResultFormat.JSON
             and query_context.result_type == ChartDataResultType.FULL
         ):

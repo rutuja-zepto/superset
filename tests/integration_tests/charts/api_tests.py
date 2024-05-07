@@ -39,7 +39,7 @@ from superset.models.slice import Slice
 from superset.reports.models import ReportSchedule, ReportScheduleType
 from superset.utils.core import get_example_default_schema
 from superset.utils.database import get_example_database  # noqa: F401
-from superset.viz import viz_types  # noqa: F401
+from superset.viz import get_viz_types  # noqa: F401
 from tests.integration_tests.base_api_tests import ApiOwnersTestCaseMixin
 from tests.integration_tests.base_tests import SupersetTestCase
 from tests.integration_tests.conftest import with_feature_flags  # noqa: F401

@@ -20,8 +20,8 @@ import json
 from inspect import isclass
 from typing import Any
 
-from superset import db, security_manager
 from superset.commands.exceptions import ImportFailedError
+from superset.extensions import db, security_manager
 from superset.migrations.shared.migrate_viz import processors
 from superset.migrations.shared.migrate_viz.base import MigrateViz
 from superset.models.slice import Slice

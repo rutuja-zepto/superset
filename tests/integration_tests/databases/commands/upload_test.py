@@ -22,7 +22,7 @@ import json
 import pytest
 from flask.ctx import AppContext
 
-from superset import db, security_manager
+from superset import security_manager
 from superset.commands.database.exceptions import (
     DatabaseNotFoundError,
     DatabaseSchemaUploadNotAllowed,
@@ -31,6 +31,7 @@ from superset.commands.database.exceptions import (
 from superset.commands.database.uploaders.base import UploadCommand
 from superset.commands.database.uploaders.csv_reader import CSVReader
 from superset.connectors.sqla.models import SqlaTable
+from superset.extensions import db
 from superset.models.core import Database
 from superset.utils.core import override_user
 from superset.utils.database import get_or_create_db

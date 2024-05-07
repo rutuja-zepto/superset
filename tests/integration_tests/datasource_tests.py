@@ -23,8 +23,8 @@ from unittest import mock
 
 import prison
 import pytest
+from flask import current_app as app
 
-from superset import app, db
 from superset.commands.dataset.exceptions import DatasetNotFoundError
 from superset.common.utils.query_cache_manager import QueryCacheManager
 from superset.connectors.sqla.models import (  # noqa: F401
@@ -35,6 +35,7 @@ from superset.connectors.sqla.models import (  # noqa: F401
 from superset.constants import CacheRegion
 from superset.daos.exceptions import DatasourceNotFound, DatasourceTypeNotSupportedError
 from superset.exceptions import SupersetGenericDBErrorException
+from superset.extensions import db
 from superset.models.core import Database
 from superset.utils.core import backend, get_example_default_schema  # noqa: F401
 from superset.utils.database import (  # noqa: F401

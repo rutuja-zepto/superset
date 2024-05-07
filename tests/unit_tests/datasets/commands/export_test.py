@@ -20,7 +20,7 @@ import json
 
 from sqlalchemy.orm.session import Session
 
-from superset import db
+from superset.extensions import db
 
 
 def test_export(session: Session) -> None:

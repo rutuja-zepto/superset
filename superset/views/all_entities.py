@@ -24,7 +24,7 @@ from flask_appbuilder.security.decorators import has_access
 from jinja2.sandbox import SandboxedEnvironment
 from werkzeug.exceptions import NotFound
 
-from superset import is_feature_enabled
+from superset.extensions import feature_flag_manager
 from superset.jinja_context import ExtraCache
 from superset.superset_typing import FlaskResponse
 from superset.tags.models import Tag
@@ -53,7 +53,7 @@ class TaggedObjectsModelView(SupersetModelView):
     @has_access
     @expose("/")
     def list(self) -> FlaskResponse:
-        if not is_feature_enabled("TAGGING_SYSTEM"):
+        if not feature_flag_manager.is_feature_enabled("TAGGING_SYSTEM"):
             return super().list()
 
         return super().render_app_template()
@@ -62,7 +62,7 @@ class TaggedObjectsModelView(SupersetModelView):
 class TaggedObjectView(BaseSupersetView):
     @staticmethod
     def is_enabled() -> bool:
-        return is_feature_enabled("TAGGING_SYSTEM")
+        return feature_flag_manager.is_feature_enabled("TAGGING_SYSTEM")
 
     @before_request
     def ensure_enabled(self) -> None:

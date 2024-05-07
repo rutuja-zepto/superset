@@ -24,7 +24,7 @@ import prison
 from sqlalchemy.sql import func
 
 import tests.integration_tests.test_app  # noqa: F401
-from superset import db
+from superset.extensions import db
 from superset.models.annotations import Annotation, AnnotationLayer
 
 from tests.integration_tests.base_tests import SupersetTestCase

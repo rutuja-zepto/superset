@@ -21,7 +21,7 @@ import pytest
 import yaml
 from flask import g  # noqa: F401
 
-from superset import db, security_manager
+from superset import security_manager
 from superset.commands.chart.create import CreateChartCommand
 from superset.commands.chart.exceptions import (
     ChartNotFoundError,
@@ -34,6 +34,7 @@ from superset.commands.chart.warm_up_cache import ChartWarmUpCacheCommand
 from superset.commands.exceptions import CommandInvalidError
 from superset.commands.importers.exceptions import IncorrectVersionError
 from superset.connectors.sqla.models import SqlaTable
+from superset.extensions import db
 from superset.models.core import Database
 from superset.models.slice import Slice
 from tests.integration_tests.base_tests import SupersetTestCase

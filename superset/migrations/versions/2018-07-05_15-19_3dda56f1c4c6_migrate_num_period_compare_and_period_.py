@@ -32,7 +32,7 @@ from alembic import op
 from sqlalchemy import Column, Integer, String, Text
 from sqlalchemy.ext.declarative import declarative_base
 
-from superset import db
+from superset.extensions import db
 from superset.utils.date_parser import parse_human_timedelta
 
 revision = "3dda56f1c4c6"

@@ -29,7 +29,7 @@ from alembic import op
 from sqlalchemy import Column, Integer, Text
 from sqlalchemy.ext.declarative import declarative_base
 
-from superset import db
+from superset.extensions import db
 
 revision = "4ce8df208545"
 down_revision = "55e910a74826"
